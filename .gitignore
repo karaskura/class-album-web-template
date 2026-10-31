@@ -6,9 +6,11 @@ node_modules/
 # 构建产物
 .next/
 out/
-build/
 dist/
 *.tsbuildinfo
+
+# 注意：desktop/build/ 是 Electron 的图标源码（icon.ico / icon.png …），
+# 不是产物，别用 build/ 一刀切把它忽略掉
 
 # 本地数据（PGlite 数据库、上传的图片、日志）
 .data/
