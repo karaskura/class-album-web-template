@@ -1,0 +1,32 @@
+# 依赖
+node_modules/
+.pnp
+.pnp.js
+
+# 构建产物
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# 本地数据（PGlite 数据库、上传的图片、日志）
+.data/
+*.log
+
+# 环境变量：只提交 .env.example
+.env
+.env.local
+.env.*.local
+
+# 客户端安装包（体积大，自己发布时另行上传）
+web/public/download/*.apk
+web/public/download/*.exe
+web/public/download/*.dmg
+web/public/download/*.AppImage
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

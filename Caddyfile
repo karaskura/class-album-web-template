@@ -1,0 +1,35 @@
+# ============================================================
+# 班级相册 · Caddy 反向代理
+#
+# SITE_ADDRESS 由 docker-compose.yml 传进来：
+#   有域名       ->  album.example.cn         （Caddy 自动申请并续期 HTTPS 证书）
+#   只在内网用   ->  :80                       （纯 HTTP，配合 COOKIE_SECURE=false）
+#   本机测试     ->  localhost                 （用 Caddy 自签的内部证书）
+#
+# Caddy 的好处：证书全自动，不用自己碰 certbot。
+# ============================================================
+
+{$SITE_ADDRESS::80} {
+	encode zstd gzip
+
+	# 客户端上传的是压缩后的小图，给足超时
+	reverse_proxy web:3000 {
+		transport http {
+			read_timeout 300s
+			write_timeout 300s
+		}
+	}
+
+	log {
+		output stdout
+		format console
+	}
+
+	header {
+		# 一些基本的安全响应头
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+}

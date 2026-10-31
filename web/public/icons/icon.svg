@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="班级相册">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4f86f7" />
+      <stop offset="1" stop-color="#2f6feb" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="113" fill="url(#g)" />
+  <g transform="translate(123,123)">
+    <rect width="266" height="266" rx="48" fill="#ffffff" />
+    <rect x="43" y="43" width="180" height="180" rx="25" fill="#ffffff" />
+    <circle cx="97" cy="97" r="20" fill="#2f6feb" />
+    <path d="M61 223 L139 122 L197 223 Z" fill="#2f6feb" />
+    <path d="M175 223 L232 155 L272 223 Z" fill="#4f86f7" />
+  </g>
+</svg>

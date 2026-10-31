@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>暂时连不上 · 班级相册</title>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --surface: #fff;
+        --text: #16181d;
+        --muted: #6b7280;
+        --border: #e8eaee;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f1115;
+          --surface: #171a21;
+          --text: #e8eaee;
+          --muted: #9aa3af;
+          --border: #262a33;
+        }
+      }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        padding: 24px;
+      }
+      .box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 32px 28px;
+        max-width: 380px;
+        text-align: center;
+      }
+      h1 {
+        font-size: 19px;
+        margin: 0 0 8px;
+      }
+      p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+        margin: 0 0 20px;
+      }
+      button {
+        border: none;
+        background: #2f6feb;
+        color: #fff;
+        font-size: 15px;
+        padding: 10px 22px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div style="font-size: 34px; margin-bottom: 10px">📶</div>
+      <h1>现在连不上服务器</h1>
+      <p>
+        照片都存在服务器上，必须先连上网络才能看到。<br />
+        检查一下 WiFi 或者流量，然后重试。
+      </p>
+      <button onclick="location.reload()">重试</button>
+    </div>
+  </body>
+</html>

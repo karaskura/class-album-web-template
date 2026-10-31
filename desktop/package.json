@@ -1,0 +1,64 @@
+{
+  "name": "classalbum",
+  "productName": "ClassAlbum",
+  "version": "1.1.0",
+  "description": "ClassAlbum Desktop —— 用独立窗口打开班级相册网页版",
+  "main": "main.js",
+  "author": "Maintainer",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "^41.3.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.example.classalbum",
+    "productName": "ClassAlbum",
+    "copyright": "Copyright © 2026 Maintainer",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "splash.html",
+      "offline.html",
+      "build/icon.png",
+      "build/icon-256.png",
+      "build/icon.ico"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "ClassAlbum-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ClassAlbum",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "installerLanguages": [
+        "zh_CN"
+      ]
+    }
+  }
+}

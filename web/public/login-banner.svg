@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="班级相册">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f6feb"/>
+      <stop offset="0.55" stop-color="#4f86f7"/>
+      <stop offset="1" stop-color="#7fb2ff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.12" r="0.8">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+
+  <g fill="#ffffff" fill-opacity="0.13">
+    <circle cx="150" cy="560" r="160"/>
+    <circle cx="1080" cy="110" r="130"/>
+    <circle cx="900" cy="580" r="85"/>
+  </g>
+
+  <g stroke="#ffffff" stroke-opacity="0.92" stroke-width="16" fill="none"
+     stroke-linecap="round" stroke-linejoin="round">
+    <rect x="420" y="205" width="360" height="265" rx="38"/>
+    <path d="M420 385l95-84 72 64 62-54 131 110"/>
+    <circle cx="525" cy="278" r="27"/>
+  </g>
+
+  <g fill="#ffffff" fill-opacity="0.9">
+    <circle cx="420" cy="500" r="9"/>
+    <circle cx="470" cy="500" r="9"/>
+    <circle cx="520" cy="500" r="9"/>
+  </g>
+</svg>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>ClassAlbum</title>
+<style>
+  /* ============================================================
+     开场动画占位 —— 之后换成正式的开场动画时，只改这个文件即可。
+     约定：动画总时长 ≈ main.js 里的 SPLASH_MIN_MS（默认 900ms）。
+     窗口透明（transparent），所以这里自己做圆角卡片。
+     ============================================================ */
+  :root { --ink: #4b4238; --muted: #9a8f83; --accent: #e8b4a2; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: grid;
+    place-items: center;
+    background: transparent;
+    font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-app-region: drag; /* 可拖动 */
+    user-select: none;
+  }
+  .card {
+    width: 520px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    border-radius: 28px;
+    background: radial-gradient(120% 120% at 50% 0%, #fffdf9 0%, #f5efe6 60%, #efe6da 100%);
+    box-shadow: 0 24px 60px rgba(80, 60, 40, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+  .logo {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 10px 26px rgba(120, 90, 70, 0.25), inset 0 0 0 4px rgba(255, 255, 255, 0.85);
+    animation: pop 700ms cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+  }
+  .name {
+    font-size: 30px;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--ink);
+    animation: rise 600ms ease 120ms both;
+  }
+  .name b { color: var(--accent); font-weight: 600; }
+  .sub {
+    margin-top: -8px;
+    font-size: 12px;
+    letter-spacing: 0.34em;
+    color: var(--muted);
+    animation: rise 600ms ease 200ms both;
+  }
+  .dots { display: flex; gap: 8px; margin-top: 6px; animation: rise 600ms ease 280ms both; }
+  .dots i {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent); opacity: 0.35;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  .dots i:nth-child(2) { animation-delay: 0.18s; }
+  .dots i:nth-child(3) { animation-delay: 0.36s; }
+
+  @keyframes pop { from { opacity: 0; transform: scale(0.86); } to { opacity: 1; transform: scale(1); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes blink { 0%, 100% { opacity: 0.25; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1); } }
+
+  /* TODO(开场动画)：
+     - 以后要做更长的开场动画（例如 logo 从圆点展开、文字逐字出现、背景粒子），
+       把动画塞进这个 .card / 额外元素里，并把 main.js 的 SPLASH_MIN_MS 调成动画时长。
+     - 如果动画需要主进程配合（比如等某个资源），可约定 window.karaSplashReady()
+       通过 preload 告诉主进程；目前不需要。 */
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="logo" src="build/icon-256.png" alt="ClassAlbum" />
+    <div class="name">Kara<b>File</b></div>
+    <div class="sub" id="sub">CLASS ALBUM</div>
+    <div class="dots"><i></i><i></i><i></i></div>
+  </div>
+  <script>
+    // 主进程用 ?v=1.0.1 把版本号带进来（main.js createSplash）
+    (function () {
+      var v = new URLSearchParams(location.search).get('v');
+      if (!v) return;
+      var el = document.getElementById('sub');
+      if (el) el.textContent = 'CLASS ALBUM · v' + v;
+    })();
+  </script>
+</body>
+</html>

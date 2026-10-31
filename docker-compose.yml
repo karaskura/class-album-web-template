@@ -1,0 +1,86 @@
+# ============================================================
+# 班级相册 · 一台服务器全搞定
+#   db      PostgreSQL 数据库
+#   web     我们的 Next.js 应用
+#   caddy   反向代理 + 自动申请 HTTPS 证书
+#
+# 用法：
+#   1. 复制 .env.example 为 .env，把 SESSION_SECRET 和 POSTGRES_PASSWORD 改掉
+#   2. docker compose up -d --build
+#   3. docker compose exec web node scripts/init-db.mjs    # 建表
+#   4. 浏览器打开 SITE_ADDRESS 对应的地址
+# ============================================================
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: album
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?请在 .env 里设置 POSTGRES_PASSWORD}
+      POSTGRES_DB: class_album
+      # 中文排序 + 别把日志撑爆
+      POSTGRES_INITDB_ARGS: '--encoding=UTF8'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U album -d class_album']
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    # 数据库不对外开端口，只在内部网络可达
+    expose:
+      - '5432'
+
+  web:
+    build: ./web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://album:${POSTGRES_PASSWORD}@db:5432/class_album
+      SESSION_SECRET: ${SESSION_SECRET:?请在 .env 里设置 SESSION_SECRET}
+      NEXT_PUBLIC_SITE_NAME: ${NEXT_PUBLIC_SITE_NAME:-班级相册}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-25}
+
+      # 存储驱动：local 存本地磁盘 / oss 走阿里云 OSS
+      STORAGE_DRIVER: ${STORAGE_DRIVER:-local}
+      LOCAL_STORAGE_DIR: /data/media
+      OSS_REGION: ${OSS_REGION:-}
+      OSS_ENDPOINT: ${OSS_ENDPOINT:-}
+      OSS_BUCKET: ${OSS_BUCKET:-}
+      OSS_ACCESS_KEY_ID: ${OSS_ACCESS_KEY_ID:-}
+      OSS_ACCESS_KEY_SECRET: ${OSS_ACCESS_KEY_SECRET:-}
+      OSS_SIGNED_URL_TTL: ${OSS_SIGNED_URL_TTL:-3600}
+
+      # 用域名 + HTTPS 时留空（自动 true）；纯 HTTP / 局域网访问必须设成 false
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+    volumes:
+      # local 驱动时照片存在这里；换成 oss 后这个卷仍然可以留着做备份
+      - media-data:/data/media
+    expose:
+      - '3000'
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    environment:
+      # 有域名就写域名（自动申请 HTTPS）；只在内网用就写 :80
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  db-data:
+  media-data:
+  caddy-data:
+  caddy-config:

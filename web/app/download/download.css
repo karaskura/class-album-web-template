@@ -1,0 +1,135 @@
+/* 手机版下载页（/download）。只用站点的 CSS 变量，浅色/夜间自动跟着走。 */
+.dl-page {
+  min-height: 100dvh;
+  padding: calc(24px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom));
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.dl-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+}
+.dl-hero { text-align: center; }
+.dl-icon {
+  width: 88px; height: 88px;
+  display: block;
+  margin: 0 auto 12px;
+}
+.dl-name { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: .5px; }
+.dl-tag { margin: 6px 0 0; font-size: 13px; color: var(--text-muted); }
+.dl-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+.dl-chip {
+  font-size: 12px; color: var(--text-muted);
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  padding: 4px 10px; background: var(--bg);
+}
+.dl-btn {
+  display: block; width: 100%; margin-top: 18px;
+  padding: 14px 18px; border-radius: var(--radius-btn);
+  background: var(--accent); color: #fff; text-decoration: none;
+  font-size: 16px; font-weight: 600; text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.dl-btn:active { background: var(--accent-hover); }
+.dl-hint {
+  margin-top: 12px; font-size: 12.5px; line-height: 1.7; color: var(--text-muted);
+  background: var(--accent-soft); border-radius: var(--radius-btn); padding: 10px 12px;
+}
+.dl-hint b { color: var(--text); }
+.dl-h2 { font-size: 15px; font-weight: 700; margin: 0 0 10px; }
+.dl-qrbox { display: flex; gap: 16px; align-items: center; }
+.dl-qr { width: 120px; height: 120px; flex: 0 0 auto; border-radius: 8px; background: #fff; }
+.dl-qrtext { font-size: 13px; line-height: 1.7; color: var(--text-muted); }
+.dl-steps { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.9; }
+.dl-steps b { color: var(--text); }
+.dl-faq { font-size: 13px; line-height: 1.8; color: var(--text-muted); }
+.dl-faq summary { cursor: pointer; color: var(--text); font-weight: 600; margin-bottom: 4px; }
+.dl-faq p { margin: 6px 0 0; }
+.dl-foot { font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.8; }
+.dl-foot a { color: var(--accent); text-decoration: none; }
+
+/* —— 手机版 / 电脑版两个下载入口（2026-10-27 加）—— */
+.dl-platforms {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+  text-align: left;
+}
+@media (min-width: 520px) {
+  .dl-platforms { flex-direction: row; align-items: stretch; }
+  .dl-platform { flex: 1 1 0; }
+}
+.dl-platform {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--bg);
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+}
+.dl-platform-head { display: flex; flex-direction: column; gap: 2px; }
+.dl-platform-name { font-size: 14.5px; font-weight: 700; }
+.dl-platform-meta { font-size: 12px; color: var(--text-muted); }
+.dl-platform .dl-btn { margin-top: auto; padding-top: 12px; padding-bottom: 12px; }
+.dl-btn-alt { background: var(--surface); color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+.dl-btn-alt:active { background: var(--surface-2); }
+
+/* —— 安装包指纹（版本/大小/SHA-256）—— */
+.dl-factblock + .dl-factblock { margin-top: 12px; }
+.dl-factblock-name { font-size: 12.5px; font-weight: 700; margin: 0 0 6px; }
+.dl-facts {
+  margin: 0 0 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  font-size: 13px;
+}
+.dl-facts:last-of-type { margin-bottom: 6px; }
+.dl-facts > div { min-width: 0; }
+.dl-facts dt { font-size: 12px; color: var(--text-muted); }
+.dl-facts dd { margin: 2px 0 0; font-weight: 600; }
+.dl-facts-wide { grid-column: 1 / -1; }
+.dl-facts dd code {
+  display: block;
+  word-break: break-all;
+  font-family: ui-monospace, Cascadia Mono, Consolas, monospace;
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.dl-facts-note { font-size: 12px; line-height: 1.7; color: var(--text-muted); margin: 0 0 4px; }
+
+/* —— 备案信息列表 —— */
+.dl-filings { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.dl-filings a {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+}
+
+/* 页面内 <code> 不换行，避免命令被折成两截 */
+.dl-faq code {
+  font-family: ui-monospace, Cascadia Mono, Consolas, monospace;
+  font-size: 12px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 1px 6px;
+  color: var(--text);
+}
+.dl-faq details { margin-bottom: 8px; }
+.dl-faq details:last-child { margin-bottom: 0; }
